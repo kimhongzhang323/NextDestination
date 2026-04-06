@@ -14,12 +14,12 @@ export default function DestinationCard({ destination, index }) {
   // Ticket styling for horizontal cards
   if (isHorizontal) {
     return (
-      <article className="col-span-1 md:col-span-2 relative bg-white rounded-sm flex flex-col md:flex-row overflow-hidden border-2 border-slate-800 shadow-[6px_6px_0_0_#1e293b] hover:shadow-[10px_10px_0_0_#1e293b] transition group hover:-translate-y-1">
+      <article className="col-span-1 md:col-span-2 relative bg-white rounded-sm flex flex-col md:flex-row border-2 border-slate-800 shadow-[6px_6px_0_0_#1e293b] hover:shadow-[10px_10px_0_0_#1e293b] transition group hover:-translate-y-1">
         {/* Top/bottom ticket semi-circles for vertical dashed line */}
         <div className="absolute top-[-14px] left-1/3 md:left-[240px] ml-[-12px] w-6 h-6 bg-[#f8f9fc] rounded-full border-b-2 border-slate-800 hidden md:block"></div>
         <div className="absolute bottom-[-14px] left-1/3 md:left-[240px] ml-[-12px] w-6 h-6 bg-[#f8f9fc] rounded-full border-t-2 border-slate-800 hidden md:block"></div>
         
-        <div className="w-full md:w-[240px] h-48 md:h-full bg-cover bg-center border-r-2 border-dashed border-slate-800" style={{ backgroundImage: `url(${image})` }}></div>
+        <div className="w-full md:w-[240px] h-48 md:h-full bg-cover bg-center border-r-2 border-dashed border-slate-800 rounded-l-[1px]" style={{ backgroundImage: `url(${image})` }}></div>
         
         <div className="flex-1 p-6 flex flex-col justify-between">
           <div>
@@ -47,12 +47,12 @@ export default function DestinationCard({ destination, index }) {
 
   // Vertical Ticket Card
   return (
-    <article className="col-span-1 relative bg-white rounded-sm flex flex-col overflow-hidden border-2 border-slate-800 shadow-[6px_6px_0_0_#1e293b] hover:shadow-[10px_10px_0_0_#1e293b] transition group hover:-translate-y-1">
+    <article className="col-span-1 relative bg-white rounded-sm flex flex-col border-2 border-slate-800 shadow-[6px_6px_0_0_#1e293b] hover:shadow-[10px_10px_0_0_#1e293b] transition group hover:-translate-y-1">
        {/* Left/right side cutouts */}
        <div className="absolute left-[-14px] top-[200px] mt-[-12px] w-6 h-6 bg-[#f8f9fc] rounded-full border-r-2 border-slate-800"></div>
        <div className="absolute right-[-14px] top-[200px] mt-[-12px] w-6 h-6 bg-[#f8f9fc] rounded-full border-l-2 border-slate-800 z-10"></div>
 
-       <div className="w-full h-[200px] bg-cover bg-center border-b-2 border-dashed border-slate-800 relative" style={{ backgroundImage: `url(${image})` }}>
+       <div className="w-full h-[200px] bg-cover bg-center border-b-2 border-dashed border-slate-800 relative rounded-t-[1px]" style={{ backgroundImage: `url(${image})` }}>
           <div className="absolute top-4 right-4 bg-white border-2 border-slate-800 text-slate-800 px-3 py-1 font-bold text-[10px] flex items-center gap-1 uppercase tracking-widest shadow-[2px_2px_0_0_#1e293b]">
              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>

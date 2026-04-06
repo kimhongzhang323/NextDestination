@@ -40,11 +40,19 @@ export default function SearchBar() {
       </div>
       <div className="hidden md:block w-[4px] bg-white border-l-4 border-dashed border-slate-800 my-2"></div>
       
-      <div className="flex-1 p-4 md:px-6 md:py-5 flex flex-col border-t-4 md:border-t-0 border-slate-800 border-dashed md:pr-10">
+      <div className="flex-1 p-4 md:px-6 md:py-5 flex flex-col border-t-4 md:border-t-0 border-slate-800 border-dashed md:pr-4">
         <label className="font-bold text-slate-800 mb-1 flex items-center gap-1 text-sm tracking-widest uppercase">
           Guest <span className="text-slate-400 text-xs">&#8964;</span>
         </label>
         <input className="border-none outline-none bg-transparent text-slate-500 text-sm w-full font-medium placeholder:text-slate-400" placeholder="- Add +" aria-label="Guest" />
+      </div>
+      <div className="hidden md:block w-[4px] bg-white border-l-4 border-dashed border-slate-800 my-2"></div>
+      
+      <div className="flex-1 p-4 md:px-6 md:py-5 flex flex-col border-t-4 md:border-t-0 border-slate-800 border-dashed md:pr-10">
+        <label className="font-bold text-slate-800 mb-1 flex items-center gap-1 text-sm tracking-widest uppercase">
+          Budget <span className="text-slate-400 text-xs">&#8964;</span>
+        </label>
+        <input className="border-none outline-none bg-transparent text-slate-500 text-sm w-full font-medium placeholder:text-slate-400" placeholder="$0-1000" aria-label="Budget" />
       </div>
 
       <div className="pr-4 pb-4 md:pt-4 md:pr-6 pl-4 md:pl-0 w-full md:w-auto">

@@ -53,7 +53,7 @@ export default function HomePage() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, i) => (
-            <article key={i} className="relative bg-white border-2 border-slate-800 rounded-sm flex flex-col md:flex-row group overflow-hidden hover:shadow-[8px_8px_0_0_#1e293b] transition duration-300">
+            <article key={i} className="relative bg-white border-2 border-slate-800 rounded-sm flex flex-col md:flex-row group hover:shadow-[8px_8px_0_0_#1e293b] transition duration-300">
               <div className="absolute left-[-14px] top-1/2 -mt-3 w-6 h-6 bg-[#f8f9fc] rounded-full border-r-2 border-slate-800 z-10 transition"></div>
               <div className="absolute right-[-14px] top-1/2 -mt-3 w-6 h-6 bg-[#f8f9fc] rounded-full border-l-2 border-slate-800 z-10 transition"></div>
               
@@ -63,7 +63,7 @@ export default function HomePage() {
                  <div className="absolute bottom-4 left-6 font-['Courier_New'] text-slate-300 font-bold tracking-widest text-[10px]">#FEAT-0{i+1}</div>
               </div>
               
-              <div className="w-full md:w-28 bg-[#ffd166]/10 flex items-center justify-center py-6 md:py-0 relative overflow-hidden">
+              <div className="w-full md:w-28 bg-[#ffd166]/10 flex items-center justify-center py-6 md:py-0 relative overflow-hidden rounded-r-[2px]">
                  <div className="text-slate-800 p-4 border-2 border-slate-800 bg-white transform group-hover:rotate-6 transition shadow-[4px_4px_0_0_#1e293b] group-hover:scale-110">
                    {feature.icon}
                  </div>
@@ -91,7 +91,7 @@ export default function HomePage() {
             
             <div className="md:w-2/3 grid grid-cols-1 md:grid-cols-3 gap-8">
               {steps.map((step, i) => (
-                <div key={i} className="relative bg-white border-2 border-slate-800 p-6 rounded-sm flex flex-col overflow-hidden shadow-[6px_6px_0_0_#1e293b] hover:-translate-y-2 transition-transform">
+                <div key={i} className="relative bg-white border-2 border-slate-800 p-6 rounded-sm flex flex-col shadow-[6px_6px_0_0_#1e293b] hover:-translate-y-2 transition-transform">
                   <div className="absolute top-[-14px] left-1/2 ml-[-12px] w-6 h-6 bg-white border-b-2 border-slate-800 rounded-full z-10"></div>
                   
                   <div className="flex items-center gap-4 border-b-2 border-dashed border-slate-800 pb-4 mb-4">
