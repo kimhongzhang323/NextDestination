@@ -6,7 +6,7 @@ import { hotelsByDestination } from "@/data/hotels";
 import { carRentalsByDestination } from "@/data/carRentals";
 import { arrivalInfoByDestination } from "@/data/arrivalCards";
 import { currencyInfoByDestination } from "@/data/currencies";
-import { transitByDestination } from "@/data/transit";
+import { transitByDestination, departureTransitByOrigin } from "@/data/transit";
 import { travelChecklistByDestination } from "@/data/travelChecklist";
 import JourneyStrip from "@/components/JourneyStrip/JourneyStrip";
 import FlightCard from "@/components/FlightCard/FlightCard";
@@ -96,6 +96,7 @@ export default async function ResultsPage({ searchParams }) {
   const currency = currencyInfoByDestination[parsed.destinationSlug];
   const transit = transitByDestination[parsed.destinationSlug];
   const checklist = travelChecklistByDestination[parsed.destinationSlug];
+  const departure = departureTransitByOrigin[parsed.origin.toLowerCase()] || departureTransitByOrigin["kuala lumpur"];
 
   const cheapestFlight = flights.length ? Math.min(...flights.map((item) => item.price)) : 0;
   const cheapestHotel = hotels.length
@@ -125,10 +126,17 @@ export default async function ResultsPage({ searchParams }) {
         <FilterSidebar />
         
         <section className={styles.main}>
+          {(activeTab === "All" || activeTab === "Departure") && (
+            <>
+              <h2>Departure: Home → Airport ({parsed.origin})</h2>
+              <TransitMap departure={departure} mode="departure" />
+            </>
+          )}
+
           {(activeTab === "All" || activeTab === "Flights") && (
             <>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '1rem 0 1rem' }}>
-                <h2 style={{ margin: 0 }}>Flights</h2>
+                <h2 style={{ margin: 0 }}>Available Flights</h2>
                 <div style={{ display: 'flex', gap: '8px', backgroundColor: '#e2e8f0', padding: '4px', borderRadius: '6px' }}>
                   <Link href={`/results?q=${encodeURIComponent(rawQ)}&tab=${encodeURIComponent(activeTab)}&flightView=list`} style={{ padding: '6px 12px', borderRadius: '4px', background: flightView === 'list' ? '#fff' : 'transparent', color: flightView === 'list' ? '#0f172a' : '#64748b', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 'bold', boxShadow: flightView === 'list' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none' }}>List View</Link>
                   <Link href={`/results?q=${encodeURIComponent(rawQ)}&tab=${encodeURIComponent(activeTab)}&flightView=airline`} style={{ padding: '6px 12px', borderRadius: '4px', background: flightView === 'airline' ? '#fff' : 'transparent', color: flightView === 'airline' ? '#0f172a' : '#64748b', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 'bold', boxShadow: flightView === 'airline' ? '0 1px 3px rgba(0,0,0,0.1)' : 'none' }}>Airline View</Link>
@@ -139,26 +147,25 @@ export default async function ResultsPage({ searchParams }) {
               {flightView === 'list' && (
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', marginBottom: '16px' }}>
                   <div style={{ padding: '14px 16px', border: '2px solid #3b82f6', borderRadius: '8px', backgroundColor: '#eff6ff' }}>
-                    <div style={{ fontSize: '0.85rem', fontWeight: 700, color: '#1d4ed8', marginBottom: '4px' }}>Best</div>
-                    <div style={{ fontSize: '1.1rem', fontWeight: 800, color: '#1e3a8a' }}>RM {bestFlight.price.toLocaleString()}</div>
-                    <div style={{ fontSize: '0.8rem', color: '#3b82f6', marginTop: '2px' }}>{bestFlight.duration}</div>
+                    <div style={{ fontSize: '0.85rem', fontWeight: 700, color: '#1d4ed8', marginBottom: '4px' }}>Best Recommendation</div>
+                    <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#1e3a8a' }}>RM {bestFlight.price.toLocaleString()}</div>
+                    <div style={{ fontSize: '0.8rem', color: '#3b82f6', marginTop: '2px' }}>⏱ {bestFlight.duration}</div>
                   </div>
                   <div style={{ padding: '14px 16px', border: '1px solid #e2e8f0', borderRadius: '8px', backgroundColor: '#fff' }}>
-                    <div style={{ fontSize: '0.85rem', fontWeight: 700, color: '#475569', marginBottom: '4px' }}>Cheapest</div>
-                    <div style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0f172a' }}>RM {cheapestFlightObj.price.toLocaleString()}</div>
-                    <div style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '2px' }}>{cheapestFlightObj.duration}</div>
+                    <div style={{ fontSize: '0.85rem', fontWeight: 700, color: '#475569', marginBottom: '4px' }}>Cheapest Option</div>
+                    <div style={{ fontSize: '1.25rem', fontWeight: 800, color: '#0f172a' }}>RM {cheapestFlightObj.price.toLocaleString()}</div>
+                    <div style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '2px' }}>⏱ {cheapestFlightObj.duration}</div>
                   </div>
                 </div>
               )}
 
               {/* Sort bar - airline view only */}
               {flightView === 'airline' && (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '24px', marginBottom: '16px', fontSize: '0.8rem', color: '#64748b', textTransform: 'uppercase', fontWeight: 600, letterSpacing: '0.5px', borderBottom: '1px solid #e5e7eb', paddingBottom: '10px' }}>
-                  <span style={{ color: '#475569' }}>Sort by:</span>
-                  <span style={{ color: '#1e3a5f', fontWeight: 700, borderBottom: '2px solid #1e3a5f', paddingBottom: '8px', marginBottom: '-11px', cursor: 'pointer' }}>Travel Duration</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '24px', marginBottom: '16px', fontSize: '0.8rem', color: '#64748b', textTransform: 'uppercase', fontWeight: 700, letterSpacing: '0.5px', borderBottom: '1px solid #e2e8f0', paddingBottom: '10px' }}>
+                  <span style={{ color: '#94a3b8' }}>Sort by:</span>
+                  <span style={{ color: '#1e3a5f', fontWeight: 800, borderBottom: '2px solid #1e3a5f', paddingBottom: '8px', marginBottom: '-11px', cursor: 'pointer' }}>Duration</span>
                   <span style={{ cursor: 'pointer' }}>Price</span>
-                  <span style={{ cursor: 'pointer' }}>Arrival Time</span>
-                  <span style={{ cursor: 'pointer' }}>Departure Time</span>
+                  <span style={{ cursor: 'pointer' }}>Time</span>
                 </div>
               )}
 
@@ -183,10 +190,10 @@ export default async function ResultsPage({ searchParams }) {
                 });
                 return Object.entries(grouped).map(([airline, airlineFlights]) => (
                   <div key={airline} style={{ marginBottom: '32px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '14px', paddingBottom: '10px', borderBottom: '2px solid #1e3a5f' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '14px', paddingBottom: '10px', borderBottom: '2px solid #e2e8f0' }}>
                       <img src={`https://images.kiwi.com/airlines/64/${airlineIATAMap[airline] || 'U2'}.png`} alt={airline} width="28" height="28" style={{ borderRadius: '50%', backgroundColor: '#fff', border: '1px solid #e5e7eb', objectFit: 'contain' }} />
-                      <h3 style={{ margin: 0, fontSize: '1.15rem', fontWeight: 700, color: '#1e3a5f', fontFamily: 'Georgia, "Times New Roman", serif' }}>{airline}</h3>
-                      <span style={{ fontSize: '0.8rem', color: '#64748b', marginLeft: 'auto' }}>{airlineFlights.length} flight{airlineFlights.length > 1 ? 's' : ''}</span>
+                      <h3 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 800, color: '#1e3a5f', fontFamily: 'Georgia, serif' }}>{airline}</h3>
+                      <span style={{ fontSize: '0.8rem', color: '#64748b', marginLeft: 'auto', fontWeight: 600 }}>{airlineFlights.length} variants found</span>
                     </div>
                     <div className={styles.cardsSpaced}>
                       {airlineFlights.map((flight) => (
@@ -196,49 +203,34 @@ export default async function ResultsPage({ searchParams }) {
                   </div>
                 ));
               })()}
-
-              {/* Footer count */}
-              {flightView === 'airline' && (
-                <div style={{ textAlign: 'center', padding: '16px', border: '1px solid #e5e7eb', borderRadius: '6px', marginTop: '12px', color: '#0369a1', fontSize: '0.85rem' }}>
-                  <div style={{ fontWeight: 700 }}>Showing {flights.length} out of {flights.length} flights</div>
-                  <div style={{ cursor: 'pointer', marginTop: '4px' }}>Show all flights</div>
-                </div>
-              )}
             </>
           )}
 
-          {(activeTab === "All" || activeTab === "Car Rental") && (
+          {(activeTab === "All" || activeTab === "Arrival") && (
             <>
-              <h2>Car Rental</h2>
-              <CarRental options={cars} />
-            </>
-          )}
-
-          {(activeTab === "All" || activeTab === "Transit") && (
-            <>
-              <h2>Transit</h2>
-              <TransitMap transit={transit} />
+              <h2>Arrival: Airport → Hotel</h2>
+              <TransitMap transit={transit} mode="arrival" />
             </>
           )}
 
           {(activeTab === "All" || activeTab === "Hotels") && (
             <>
-              <h2>Hotels</h2>
+              <h2>Accommodation Search</h2>
               <HotelCompare hotels={hotels} nights={parsed.days} />
+            </>
+          )}
+
+          {(activeTab === "All" || activeTab === "Local Plan") && (
+            <>
+              <h2>Local Plan: Hotel → Sightseeing</h2>
+              <TransitMap transit={transit} mode="local" />
             </>
           )}
 
           {(activeTab === "All" || activeTab === "Checklist") && (
             <>
-              <h2>Pre-Travel Checklist</h2>
+              <h2>Travel Checklist</h2>
               <TravelChecklist checklist={checklist} />
-            </>
-          )}
-
-          {activeTab === "Return" && (
-            <>
-              <h2>Return Journey</h2>
-              <p style={{ color: '#64748b' }}>Select your returning transport details here to complete your booking.</p>
             </>
           )}
         </section>
@@ -250,7 +242,7 @@ export default async function ResultsPage({ searchParams }) {
         </aside>
       </div>
 
-      <DoorToDoorBar total={total} />
+      <DoorToDoorBar currentTotal={total} budgetLimit={parsed.budget || 5000} />
     </div>
   );
 }
