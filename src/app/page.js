@@ -4,12 +4,12 @@ import { destinations } from "@/data/destinations";
 
 export default function HomePage() {
   const features = [
-    { title: "Flight Comparison", icon: "✈️", desc: "Compare all carriers for the same route side-by-side." },
-    { title: "Hotel Price Parity", icon: "🏨", desc: "See exact matching hotel prices from every major platform." },
-    { title: "Car Rental Picks", icon: "🚗", desc: "Compare vehicle types, rates and locations easily." },
-    { title: "Arrival Card Assistant", icon: "🛂", desc: "Digital requirements and visa status mapped for you." },
-    { title: "Currency Intelligence", icon: "💱", desc: "Live exchange rates and accepted payment methods." },
-    { title: "Transit Routes", icon: "🚇", desc: "Interactive maps and fare estimates for your destination." },
+    { title: "Flight Comparison", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>, desc: "Compare all carriers for the same route side-by-side." },
+    { title: "Hotel Price Parity", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>, desc: "See exact matching hotel prices from every major platform." },
+    { title: "Car Rental Picks", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>, desc: "Compare vehicle types, rates and locations easily." },
+    { title: "Arrival Card Assistant", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>, desc: "Digital requirements and visa status mapped for you." },
+    { title: "Currency Intelligence", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><line x1="12" y1="18" x2="12" y2="6"/></svg>, desc: "Live exchange rates and accepted payment methods." },
+    { title: "Transit Routes", icon: <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>, desc: "Interactive maps and fare estimates for your destination." }
   ];
 
   const steps = [
@@ -21,24 +21,18 @@ export default function HomePage() {
   return (
     <div className="pb-16 bg-[#f8f9fc] min-h-screen font-sans">
       {/* HERO SECTION */}
-      <section className="mb-16 pb-8 max-w-[1300px] mx-auto px-4 lg:px-0">
-        <div className="relative h-[480px] rounded-[40px] bg-cover bg-center flex flex-col items-center justify-center text-center text-white shadow-2xl overflow-hidden" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')" }}>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/40 z-10"></div>
+      <section className="mb-24 pb-8 max-w-[1300px] mx-auto px-4 lg:px-0">
+        <div className="relative h-[480px] rounded-sm bg-cover bg-center flex flex-col items-center justify-center text-center text-white border-4 border-slate-800 shadow-[12px_12px_0_0_#1e293b] overflow-hidden" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')" }}>
+          <div className="absolute inset-0 bg-slate-900/40 z-10"></div>
           
           <div className="relative z-20 px-4">
-            <p className="text-[#ffd166] uppercase tracking-widest text-sm font-bold mb-2">Stop searching. Start journeying.</p>
-            <h1 className="font-extrabold text-4xl md:text-6xl tracking-tight mb-4 max-w-4xl font-['Outfit']">
-              Plan your whole trip in one timeline.
+            <div className="inline-block bg-[#ffd166] text-slate-900 border-2 border-slate-900 px-4 py-1 mb-6 font-bold text-xs tracking-widest uppercase shadow-[3px_3px_0_0_#1e293b]">Stop searching. Start journeying.</div>
+            <h1 className="font-extrabold text-4xl md:text-6xl tracking-tight mb-4 max-w-4xl font-['Outfit'] uppercase">
+              Plan your whole trip in one timeline
             </h1>
-            <p className="text-lg md:text-xl font-medium mb-8 max-w-2xl mx-auto drop-shadow-md">
+            <p className="text-lg md:text-xl font-medium mb-8 max-w-2xl mx-auto drop-shadow-md text-slate-100">
               Flights, hotels, car rentals, transit, arrival cards, and money tips in one seamless flow.
             </p>
-            
-            <button className="w-16 h-16 rounded-full bg-white/25 backdrop-blur-md border border-white/40 text-white flex items-center justify-center cursor-pointer transition transform hover:bg-white/40 hover:scale-105 mx-auto" aria-label="Play Video">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </button>
           </div>
         </div>
         
@@ -49,37 +43,65 @@ export default function HomePage() {
       </section>
 
       {/* FEATURE GRID MODULE */}
-      <section className="max-w-[1300px] mx-auto px-4 md:px-8 mb-20">
-        <div className="text-center mb-10">
-          <h2 className="text-3xl font-bold font-['Outfit'] text-slate-800">Unified Travel Capabilities</h2>
-          <p className="text-slate-500 mt-2">Everything you need to stop tab-switching.</p>
+      <section className="max-w-[1300px] mx-auto px-4 md:px-8 mb-24">
+        <div className="text-center mb-12">
+          <span className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-2 block">System Manifesto</span>
+          <h2 className="text-3xl font-extrabold font-['Outfit'] text-slate-800 uppercase tracking-tight">Unified Capabilities</h2>
+          <div className="w-16 h-1 bg-[#ffd166] mx-auto mt-4 mb-4 border border-slate-800"></div>
+          <p className="text-slate-500 font-bold tracking-wide uppercase text-sm">Everything you need to stop tab-switching</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, i) => (
-            <article key={i} className="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm hover:shadow-lg transition-transform hover:-translate-y-1 group">
-              <div className="text-4xl mb-4 transform group-hover:scale-110 transition">{feature.icon}</div>
-              <h3 className="text-xl font-bold text-slate-800 mb-2 font-['Outfit']">{feature.title}</h3>
-              <p className="text-slate-500 text-sm leading-relaxed">{feature.desc}</p>
+            <article key={i} className="relative bg-white border-2 border-slate-800 rounded-sm flex flex-col md:flex-row group overflow-hidden hover:shadow-[8px_8px_0_0_#1e293b] transition duration-300">
+              <div className="absolute left-[-14px] top-1/2 -mt-3 w-6 h-6 bg-[#f8f9fc] rounded-full border-r-2 border-slate-800 z-10 transition"></div>
+              <div className="absolute right-[-14px] top-1/2 -mt-3 w-6 h-6 bg-[#f8f9fc] rounded-full border-l-2 border-slate-800 z-10 transition"></div>
+              
+              <div className="p-6 md:pr-0 flex-1 flex flex-col justify-center border-b-2 md:border-b-0 md:border-r-2 border-dashed border-slate-800 relative">
+                 <h3 className="text-lg font-extrabold text-slate-800 mb-2 font-['Outfit'] uppercase tracking-tight">{feature.title}</h3>
+                 <p className="text-slate-500 text-sm leading-relaxed pr-4 font-medium">{feature.desc}</p>
+                 <div className="absolute bottom-4 left-6 font-['Courier_New'] text-slate-300 font-bold tracking-widest text-[10px]">#FEAT-0{i+1}</div>
+              </div>
+              
+              <div className="w-full md:w-28 bg-[#ffd166]/10 flex items-center justify-center py-6 md:py-0 relative overflow-hidden">
+                 <div className="text-slate-800 p-4 border-2 border-slate-800 bg-white transform group-hover:rotate-6 transition shadow-[4px_4px_0_0_#1e293b] group-hover:scale-110">
+                   {feature.icon}
+                 </div>
+              </div>
             </article>
           ))}
         </div>
       </section>
 
       {/* HOW IT WORKS MODULE */}
-      <section className="bg-white py-16 mb-20 border-y border-slate-100">
+      <section className="bg-white py-20 mb-24 border-y-4 border-slate-800 relative z-20 overflow-hidden">
+        {/* Ticket dashed lines at border */}
+        <div className="absolute top-[-2px] left-0 w-full border-t-[8px] border-dashed border-[#f8f9fc]"></div>
+        <div className="absolute bottom-[-2px] left-0 w-full border-b-[8px] border-dashed border-[#f8f9fc]"></div>
+        
         <div className="max-w-[1300px] mx-auto px-4 md:px-8">
-          <div className="flex flex-col md:flex-row gap-12 items-center justify-between">
+          <div className="flex flex-col md:flex-row gap-16 items-center justify-between">
             <div className="md:w-1/3">
-              <h2 className="text-3xl font-bold font-['Outfit'] text-slate-800 mb-4">How it works</h2>
-              <p className="text-slate-500">Three simple steps to build your comprehensive travel itinerary without the tab fatigue.</p>
+              <span className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-2 block">Protocol</span>
+              <h2 className="text-3xl font-extrabold font-['Outfit'] text-slate-800 mb-6 uppercase tracking-tight">How it works</h2>
+              <div className="p-6 bg-slate-50 border-2 border-slate-800 shadow-[6px_6px_0_0_#1e293b]">
+                <p className="text-slate-700 font-medium">Three simple steps to build your comprehensive travel itinerary without the tab fatigue.</p>
+              </div>
             </div>
+            
             <div className="md:w-2/3 grid grid-cols-1 md:grid-cols-3 gap-8">
               {steps.map((step, i) => (
-                <div key={i} className="relative">
-                  <span className="text-6xl font-black text-slate-100 absolute -top-6 -left-4 z-0 group-hover:text-slate-200 transition">{step.num}</span>
-                  <div className="relative z-10">
-                    <h3 className="text-lg font-bold text-slate-800 mb-2 font-['Outfit']">{step.title}</h3>
-                    <p className="text-slate-500 text-sm">{step.text}</p>
+                <div key={i} className="relative bg-white border-2 border-slate-800 p-6 rounded-sm flex flex-col overflow-hidden shadow-[6px_6px_0_0_#1e293b] hover:-translate-y-2 transition-transform">
+                  <div className="absolute top-[-14px] left-1/2 ml-[-12px] w-6 h-6 bg-white border-b-2 border-slate-800 rounded-full z-10"></div>
+                  
+                  <div className="flex items-center gap-4 border-b-2 border-dashed border-slate-800 pb-4 mb-4">
+                    <span className="uppercase text-[10px] font-bold tracking-widest text-slate-800 bg-[#ffd166] px-2 py-1 border border-slate-800">Phase</span>
+                    <span className="font-['Courier_New'] font-black text-2xl text-slate-300">#{step.num}</span>
+                  </div>
+                  
+                  <div className="relative z-10 flex-1">
+                    <h3 className="text-lg font-extrabold text-slate-800 mb-2 font-['Outfit'] uppercase leading-tight">{step.title}</h3>
+                    <p className="text-slate-500 text-sm font-medium">{step.text}</p>
                   </div>
                 </div>
               ))}
@@ -90,15 +112,16 @@ export default function HomePage() {
 
       {/* DESTINATIONS MODULE */}
       <section className="max-w-[1300px] mx-auto px-4 md:px-8">
-        <div className="flex justify-between items-end mb-8">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
           <div>
-            <h2 className="text-3xl font-bold font-['Outfit'] text-slate-800">Popular Destinations</h2>
-            <p className="text-slate-500 mt-2">Curated packages mapped out for you.</p>
+            <span className="text-xs font-bold text-slate-400 tracking-widest uppercase mb-2 block">Flight Paths</span>
+            <h2 className="text-3xl font-extrabold font-['Outfit'] text-slate-800 uppercase tracking-tight">Destinations</h2>
+            <p className="text-slate-500 mt-2 font-bold uppercase tracking-widest text-sm">Curated packages mapped out</p>
           </div>
-          <button className="text-[#333] font-semibold hover:underline">View all</button>
+          <button className="text-slate-800 font-bold uppercase tracking-widest text-xs border-b-2 border-slate-800 pb-1 hover:text-[#ffd166] hover:border-[#ffd166] transition">View full routing</button>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {destinations.slice(0, 4).map((destination, index) => (
             <DestinationCard key={destination.slug} destination={destination} index={index} />
           ))}
