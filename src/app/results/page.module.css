@@ -26,9 +26,9 @@
 }
 
 .grid {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   display: grid;
-  grid-template-columns: 240px 2fr 1fr;
+  grid-template-columns: 240px 1fr 250px;
   gap: 1.5rem;
 }
 
@@ -48,9 +48,15 @@
 }
 
 .cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.cardsSpaced {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .sidebar {

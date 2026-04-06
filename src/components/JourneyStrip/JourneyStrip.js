@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styles from "./JourneyStrip.module.css";
 
-const steps = ["All", "Flights", "Car Rental", "Transit", "Hotels", "Return"];
+const steps = ["All", "Flights", "Car Rental", "Transit", "Hotels", "Checklist", "Return"];
 
 export default function JourneyStrip({ activeTab = "All", queryParams = "" }) {
   return (

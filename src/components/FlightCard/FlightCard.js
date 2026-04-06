@@ -1,87 +1,231 @@
 "use client";
 
 import { formatMYR } from "@/utils/currency";
-import styles from "./FlightCard.module.css";
 
-const airlineLogos = {
-  "AirAsia": "https://upload.wikimedia.org/wikipedia/commons/f/f5/AirAsia_New_Logo.svg",
-  "Malaysia Airlines": "https://upload.wikimedia.org/wikipedia/commons/a/af/Malaysia_Airlines_Logo.svg",
-  "JAL": "https://upload.wikimedia.org/wikipedia/en/1/19/Japan_Airlines_Logo.svg",
-  "Scoot": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Scoot_logo.svg",
-  "Korean Air": "https://upload.wikimedia.org/wikipedia/commons/0/07/Korean_Air_logo.svg",
-  "Thai Airways": "https://upload.wikimedia.org/wikipedia/en/5/58/Thai_Airways_Logo.svg",
-  "Singapore Airlines": "https://upload.wikimedia.org/wikipedia/en/6/6b/Singapore_Airlines_Logo_2.svg",
-  "Emirates": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Emirates_logo.svg",
-  "Turkish Airlines": "https://upload.wikimedia.org/wikipedia/commons/4/44/Turkish_Airlines_logo.svg",
-  "Qatar Airways": "https://upload.wikimedia.org/wikipedia/en/9/9b/Qatar_Airways_Logo.svg"
+const airlineIATA = {
+  "AirAsia": "AK",
+  "Malaysia Airlines": "MH",
+  "JAL": "JL",
+  "Scoot": "TR",
+  "Korean Air": "KE",
+  "Thai Airways": "TG",
+  "Singapore Airlines": "SQ",
+  "Emirates": "EK",
+  "Turkish Airlines": "TK",
+  "Qatar Airways": "QR",
+  "ANA": "NH"
 };
 
-export default function FlightCard({ flight }) {
-  const logo = airlineLogos[flight.airline] || "https://upload.wikimedia.org/wikipedia/commons/a/a2/Airplane_silhouette.svg";
-  
-  // Airport board styling
-  return (
-    <article className={styles.card} style={{ backgroundColor: '#111', color: '#ffb000', fontFamily: 'monospace', padding: '16px', border: '2px solid #333' }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px', borderBottom: '1px dashed #444', paddingBottom: '8px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <img src={logo} alt={flight.airline} width="24" height="24" style={{ borderRadius: '4px', backgroundColor: '#fff', padding: '2px' }} />
-          <h3 style={{ margin: 0, fontSize: '1rem', color: '#fff', textTransform: 'uppercase' }}>{flight.airline}</h3>
-        </div>
-        <div style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>From {formatMYR(flight.price)}</div>
-      </div>
-      
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '16px' }}>
-        <div>
-          <span style={{ color: '#aaa', fontSize: '0.75rem', display: 'block' }}>DEPARTURE</span>
-          <span style={{ fontSize: '1.1rem', color: '#0f0' }}>{flight.departureTime || '08:00 AM'}</span>
-        </div>
-        <div style={{ textAlign: 'center' }}>
-          <span style={{ color: '#aaa', fontSize: '0.75rem', display: 'block' }}>DURATION</span>
-          <span>{flight.duration}</span>
-        </div>
-        <div style={{ textAlign: 'right' }}>
-          <span style={{ color: '#aaa', fontSize: '0.75rem', display: 'block' }}>ARRIVAL</span>
-          <span style={{ fontSize: '1.1rem', color: '#0f0' }}>{flight.arrivalTime || '02:45 PM'}</span>
-        </div>
-      </div>
+export default function FlightCard({ flight, view = 'list' }) {
+  const iata = airlineIATA[flight.airline] || "U2";
+  const logo = `https://images.kiwi.com/airlines/64/${iata}.png`;
+  const flightNum = `${iata} ${Math.floor(100 + flight.price % 900)}`;
 
-      <div style={{ background: '#222', padding: '8px', borderRadius: '4px', border: '1px solid #444', overflow: 'hidden' }}>
-        <table style={{ width: '100%', fontSize: '0.85rem', color: '#ccc', borderCollapse: 'collapse' }}>
-           <thead>
-             <tr style={{ textAlign: 'left', borderBottom: '1px dashed #555' }}>
-               <th style={{ padding: '4px', fontWeight: 'normal', color: '#777' }}>CLASS</th>
-               <th style={{ padding: '4px', fontWeight: 'normal', color: '#777' }}>DEPART</th>
-               <th style={{ padding: '4px', fontWeight: 'normal', textAlign: 'right', color: '#777' }}>RATE</th>
-               <th style={{ padding: '4px' }}></th>
-             </tr>
-           </thead>
-           <tbody>
-             <tr>
-               <td style={{ padding: '6px 4px', color: '#fff' }}>ECON</td>
-               <td style={{ padding: '6px 4px' }}>08:00 AM</td>
-               <td style={{ padding: '6px 4px', textAlign: 'right' }}>{formatMYR(flight.price)}</td>
-               <td style={{ padding: '6px 4px', textAlign: 'right' }}><button style={{ background: '#0f0', color: '#000', border: 'none', padding: '2px 8px', fontWeight: 'bold', cursor: 'pointer', fontFamily: 'monospace' }}>FLY</button></td>
-             </tr>
-             <tr>
-               <td style={{ padding: '6px 4px', color: '#fff' }}>ECON</td>
-               <td style={{ padding: '6px 4px' }}>06:30 PM</td>
-               <td style={{ padding: '6px 4px', textAlign: 'right' }}>{formatMYR(Math.floor(flight.price * 0.9))}</td>
-               <td style={{ padding: '6px 4px', textAlign: 'right' }}><button style={{ background: '#0f0', color: '#000', border: 'none', padding: '2px 8px', fontWeight: 'bold', cursor: 'pointer', fontFamily: 'monospace' }}>FLY</button></td>
-             </tr>
-             <tr style={{ borderTop: '1px dashed #444' }}>
-               <td style={{ padding: '6px 4px', color: '#ffb000' }}>BIZ</td>
-               <td style={{ padding: '6px 4px' }}>10:15 AM</td>
-               <td style={{ padding: '6px 4px', textAlign: 'right' }}>{formatMYR(Math.floor(flight.price * 2.8))}</td>
-               <td style={{ padding: '6px 4px', textAlign: 'right' }}><button style={{ background: '#ffb000', color: '#000', border: 'none', padding: '2px 8px', fontWeight: 'bold', cursor: 'pointer', fontFamily: 'monospace' }}>FLY</button></td>
-             </tr>
-           </tbody>
-        </table>
-      </div>
-      
-      <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', color: '#555', marginTop: '12px', borderTop: '1px dashed #444', paddingTop: '8px' }}>
-        <span>{flight.stops} stop(s)</span>
-        <span>{flight.baggage}</span>
-        <span style={{ color: '#f00', animation: 'blink 1s step-end infinite' }}>ON TIME</span>
+  /* ───────────────── LIST VIEW (Google Flights style) ───────────────── */
+  if (view === 'list') {
+    const isGreen = flight.emissions?.includes('-');
+    return (
+      <article style={{
+        display: 'grid',
+        gridTemplateColumns: '48px 200px 120px 130px 140px 110px 28px',
+        alignItems: 'center',
+        padding: '14px 20px',
+        backgroundColor: '#202124',
+        color: '#e8eaed',
+        borderBottom: '1px solid #3c4043',
+        fontFamily: '"Google Sans", Roboto, Arial, sans-serif',
+        fontSize: '0.9rem',
+        minHeight: '72px',
+      }}>
+        <img src={logo} alt={flight.airline} width="32" height="32"
+          style={{ borderRadius: '50%', backgroundColor: '#fff', padding: '2px', objectFit: 'contain' }} />
+
+        <div>
+          <div style={{ fontWeight: 500, whiteSpace: 'nowrap' }}>
+            {flight.departureTime} – {flight.arrivalTime}
+          </div>
+          <div style={{ color: '#9aa0a6', fontSize: '0.8rem', marginTop: '2px' }}>{flight.airline}</div>
+        </div>
+
+        <div>
+          <div style={{ fontWeight: 500 }}>{flight.duration}</div>
+          <div style={{ color: '#9aa0a6', fontSize: '0.8rem', marginTop: '2px' }}>{flight.route}</div>
+        </div>
+
+        <div>
+          <div style={{ fontWeight: 500 }}>
+            {flight.stops === 0
+              ? <span style={{ color: '#81c995' }}>Nonstop</span>
+              : <span>{flight.stops} stop</span>}
+          </div>
+          <div style={{ color: '#9aa0a6', fontSize: '0.8rem', marginTop: '2px' }}>{flight.stops > 0 ? flight.stopsInfo : ''}</div>
+        </div>
+
+        <div>
+          <div style={{ fontWeight: 500 }}>{flight.co2} CO₂e</div>
+          {isGreen ? (
+            <div style={{
+              fontSize: '0.75rem', color: '#81c995', marginTop: '2px',
+              backgroundColor: 'rgba(129,201,149,0.12)', display: 'inline-block',
+              padding: '1px 6px', borderRadius: '3px',
+            }}>{flight.emissions}</div>
+          ) : (
+            <div style={{ fontSize: '0.75rem', color: '#9aa0a6', marginTop: '2px' }}>{flight.emissions}</div>
+          )}
+        </div>
+
+        <div style={{ textAlign: 'right' }}>
+          <div style={{ fontWeight: 600, fontSize: '1rem', color: '#81c995' }}>{formatMYR(flight.price)}</div>
+          <div style={{ color: '#9aa0a6', fontSize: '0.75rem', marginTop: '2px' }}>round trip</div>
+        </div>
+
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#9aa0a6" style={{ justifySelf: 'end' }}>
+          <path d="M7 10l5 5 5-5z" />
+        </svg>
+      </article>
+    );
+  }
+
+  /* ───────────────── AIRLINE VIEW (SQ-style itinerary card) ───────────────── */
+  const depCode = flight.route.split('–')[0];
+  const arrCode = flight.route.split('–')[1];
+  const stopLabel = flight.stops === 0 ? 'Non-stop' : `One-stop`;
+
+  return (
+    <article style={{
+      backgroundColor: '#fff', color: '#1e293b',
+      border: '1px solid #d1d5db', borderRadius: '6px',
+      overflow: 'hidden',
+    }}>
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr auto',
+        minHeight: '120px',
+      }}>
+        {/* Left: Flight itinerary */}
+        <div style={{ padding: '20px 24px', display: 'flex', flexDirection: 'column', gap: '4px' }}>
+
+          {/* Stop info label */}
+          <div style={{ fontSize: '0.8rem', color: '#64748b', marginBottom: '4px' }}>
+            {stopLabel} · {flight.duration}
+          </div>
+
+          {/* Main itinerary row */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0' }}>
+
+            {/* Departure */}
+            <div style={{ minWidth: '130px' }}>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
+                <span style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 600 }}>{depCode}</span>
+                <span style={{ fontSize: '1.6rem', fontWeight: 700, fontFamily: 'Georgia, serif', color: '#1e3a5f' }}>
+                  {flight.departureTime?.replace(' AM', '').replace(' PM', '')}
+                </span>
+              </div>
+              <div style={{ fontSize: '0.75rem', color: '#64748b', marginTop: '2px' }}>
+                {depCode === 'KUL' ? 'Kuala Lumpur' : depCode}
+              </div>
+            </div>
+
+            {/* Route line */}
+            <div style={{
+              flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center',
+              minWidth: '120px', padding: '0 12px',
+            }}>
+              <div style={{
+                width: '100%', height: '2px', backgroundColor: '#cbd5e1',
+                position: 'relative', margin: '8px 0',
+              }}>
+                {/* Plane icon at start */}
+                <div style={{
+                  position: 'absolute', left: '-2px', top: '-5px',
+                  fontSize: '0.7rem', color: '#64748b',
+                }}>✈</div>
+                {/* Stop dot */}
+                {flight.stops > 0 && (
+                  <div style={{
+                    position: 'absolute', top: '-5px', left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: '10px', height: '10px',
+                    backgroundColor: '#d97706', borderRadius: '50%',
+                  }} />
+                )}
+                {/* Plane icon at end */}
+                <div style={{
+                  position: 'absolute', right: '-2px', top: '-5px',
+                  fontSize: '0.7rem', color: '#64748b',
+                }}>✈</div>
+              </div>
+              {flight.stops > 0 && (
+                <div style={{ fontSize: '0.7rem', color: '#64748b', textAlign: 'center', fontWeight: 600 }}>
+                  {flight.stopsInfo?.split(' ').slice(-1)[0]} · {flight.stopsInfo?.split(' ').slice(0, -1).join(' ')}
+                </div>
+              )}
+            </div>
+
+            {/* Arrival */}
+            <div style={{ minWidth: '130px' }}>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '6px' }}>
+                <span style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: 600 }}>{arrCode}</span>
+                <span style={{ fontSize: '1.6rem', fontWeight: 700, fontFamily: 'Georgia, serif', color: '#1e3a5f' }}>
+                  {flight.arrivalTime?.replace(' AM', '').replace(' PM', '')}
+                </span>
+              </div>
+              <div style={{ fontSize: '0.75rem', color: '#64748b', marginTop: '2px' }}>
+                {arrCode === 'KIX' ? 'Osaka' : arrCode === 'ICN' ? 'Seoul' : arrCode === 'BKK' ? 'Bangkok' : arrCode === 'DPS' ? 'Bali' : arrCode === 'LHR' ? 'London' : arrCode === 'IST' ? 'Istanbul' : arrCode}
+              </div>
+            </div>
+          </div>
+
+          {/* Operating airlines + flight numbers */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginTop: '6px' }}>
+            <img src={logo} alt={flight.airline} width="20" height="20"
+              style={{ borderRadius: '50%', backgroundColor: '#fff', border: '1px solid #e5e7eb', objectFit: 'contain' }} />
+            <span style={{ fontSize: '0.8rem', color: '#475569' }}>
+              {flight.airline} · {flightNum}
+            </span>
+            {flight.stops > 0 && (
+              <span style={{ fontSize: '0.8rem', color: '#475569' }}>
+                · {flight.airline} · {iata} {Math.floor(600 + flight.price % 300)}
+              </span>
+            )}
+          </div>
+
+          {/* More details link */}
+          <div style={{ marginTop: '4px' }}>
+            <span style={{ fontSize: '0.8rem', color: '#0369a1', cursor: 'pointer' }}>More details ▾</span>
+          </div>
+        </div>
+
+        {/* Right: Price + class badge */}
+        <div style={{
+          display: 'flex', flexDirection: 'column', alignItems: 'flex-end',
+          justifyContent: 'flex-start', padding: '20px 24px', gap: '8px',
+          borderLeft: '1px solid #e5e7eb', minWidth: '160px',
+        }}>
+          {/* Class badge */}
+          <div style={{
+            backgroundColor: '#0e7c61', color: '#fff',
+            fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase',
+            padding: '4px 14px', borderRadius: '4px', letterSpacing: '0.5px',
+          }}>Economy</div>
+
+          {/* Price */}
+          <div style={{ textAlign: 'right', marginTop: '4px' }}>
+            <div style={{ fontSize: '0.7rem', color: '#64748b', textTransform: 'uppercase', fontWeight: 600 }}>From MYR</div>
+            <div style={{
+              fontSize: '1.5rem', fontWeight: 700, color: '#1e3a5f',
+              fontFamily: 'Georgia, serif', lineHeight: 1.1,
+            }}>
+              {flight.price.toLocaleString()}<span style={{ fontSize: '1rem' }}>.00</span>
+            </div>
+            <div style={{ fontSize: '0.7rem', color: '#64748b', textTransform: 'uppercase', fontWeight: 600, marginTop: '2px' }}>Per Adult</div>
+          </div>
+
+          {/* Expand */}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="#9ca3af" style={{ marginTop: 'auto' }}>
+            <path d="M7 10l5 5 5-5z" />
+          </svg>
+        </div>
       </div>
     </article>
   );
