@@ -1,0 +1,118 @@
+/* Base styles removed as cards are fully separated */
+.card {
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  position: relative;
+}
+
+/* HORIZONTAL CARD */
+.horizontal {
+  display: flex;
+  background: white;
+  border-radius: var(--radius-lg);
+  height: 180px;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.imgWrap {
+  width: 45%;
+  background-size: cover;
+  background-position: center;
+}
+
+.horizontal .content {
+  width: 55%;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.horizontal h3 {
+  margin: 0;
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+}
+
+.location {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin: 0.5rem 0 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+.bookBtn {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  background: white;
+  border: 1px solid #e0e0e0;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-pill);
+  width: fit-content;
+  margin: 0 auto;
+  transition: var(--transition);
+}
+
+.bookBtn:hover {
+  background: #f5f5f5;
+}
+
+/* VERTICAL CARD */
+.vertical {
+  height: 380px;
+  border-radius: var(--radius-xl);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.pill {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(4px);
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius-pill);
+  width: fit-content;
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--text-primary);
+  margin-left: auto;
+}
+
+.bottomOverlay {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  text-align: center;
+}
+
+.bottomOverlay h3 {
+  margin: 0;
+  font-family: var(--font-outfit), sans-serif;
+  color: var(--text-primary);
+}
+
+.stars {
+  color: #fb8c00;
+  font-size: 0.9rem;
+  margin: 0.2rem 0 0.5rem 0;
+}
+
+.bookBtnText {
+  color: #f75535;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: underline;
+}

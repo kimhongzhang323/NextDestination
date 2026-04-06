@@ -1,0 +1,33 @@
+.card {
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(0,0,0,0.05);
+  background: var(--bg-surface);
+  padding: 1rem;
+}
+
+.card h3 {
+  margin: 0;
+}
+
+.card p {
+  color: var(--text-secondary);
+}
+
+.lines {
+  display: flex;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
+.lines span {
+  border-radius: 999px;
+  background: rgba(79, 125, 249, 0.2);
+  padding: 0.25rem 0.55rem;
+  font-size: 0.8rem;
+}
+
+.routes {
+  margin-top: 0.75rem;
+  display: grid;
+  gap: 0.65rem;
+}

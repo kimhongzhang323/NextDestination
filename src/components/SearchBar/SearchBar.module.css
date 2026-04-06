@@ -1,0 +1,95 @@
+.form {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  padding: 0.4rem 0.4rem 0.4rem 1rem;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  z-index: 20;
+  max-width: 800px;
+  margin: 0 auto;
+  transform: translateY(50%);
+}
+
+.field {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.field label {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.downArrow {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.field input {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.field input::placeholder {
+  color: var(--text-light);
+}
+
+.divider {
+  width: 1px;
+  height: 2.5rem;
+  background: #eaeaea;
+}
+
+.searchBtn {
+  background: #2b2b2b;
+  color: #fff;
+  border: none;
+  padding: 1.2rem 2rem;
+  border-radius: var(--radius-lg);
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--transition);
+  font-size: 0.95rem;
+  margin-left: 0.5rem;
+}
+
+.searchBtn:hover {
+  background: #111;
+}
+
+@media (max-width: 700px) {
+  .form {
+    flex-direction: column;
+    border-radius: var(--radius-lg);
+    padding: 1rem;
+    align-items: stretch;
+  }
+  
+  .divider {
+    width: 100%;
+    height: 1px;
+    margin: 0.5rem 0;
+  }
+
+  .searchBtn {
+    margin-left: 0;
+    margin-top: 1rem;
+    justify-content: center;
+  }
+}

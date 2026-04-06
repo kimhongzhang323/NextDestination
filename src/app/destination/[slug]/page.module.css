@@ -1,0 +1,38 @@
+.page {
+  padding: 1rem 0 2rem;
+}
+
+.page h1 {
+  margin-bottom: 0.3rem;
+  font-family: var(--font-outfit), sans-serif;
+}
+
+.subtext {
+  margin-top: 0;
+  color: var(--text-secondary);
+}
+
+.tabs {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+}
+
+.tabs a {
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(15, 22, 41, 0.72);
+  padding: 0.35rem 0.7rem;
+}
+
+.section {
+  margin-top: 0.9rem;
+}
+
+.tips {
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.6rem;
+}

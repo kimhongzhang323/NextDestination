@@ -1,0 +1,42 @@
+.page {
+  padding: 1rem 0 2rem;
+}
+
+.page h1 {
+  margin-bottom: 0.3rem;
+  font-family: var(--font-outfit), sans-serif;
+}
+
+.subtext {
+  margin-top: 0;
+  color: var(--text-secondary);
+}
+
+.grid {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+}
+
+.main h2 {
+  margin: 1rem 0 0.7rem;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.8rem;
+}
+
+.sidebar {
+  display: grid;
+  align-content: start;
+  gap: 1rem;
+}
+
+@media (max-width: 920px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

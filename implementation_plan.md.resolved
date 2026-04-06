@@ -1,0 +1,295 @@
+# NextDestination — Travel Planning Super App
+
+> **"Stop searching. Start journeying."**
+> A unified platform that solves the "Tab Fatigue" problem by combining flight comparison, hotel price parity, car rentals, public transit routes, arrival card info, currency tips, and smart travel intelligence into one seamless experience.
+
+## Background & Problem
+
+Travelers today must juggle **10+ tabs** across Skyscanner, Agoda, Booking.com, Google Flights, Rome2Rio, and TripAdvisor just to plan a single trip. No existing platform lets you:
+
+1. Compare **all airline prices** for the same route in one view
+2. Compare the **exact same hotel** price across Agoda, Booking.com, Airbnb, Expedia, and direct booking side-by-side
+3. See **car rental** options alongside flights and hotels
+4. Check **arrival card** requirements, **currency**, and **accepted payment methods** for your destination
+5. Browse **train/MRT/LRT routes** for getting around once you land
+6. Get **contextual, date-specific travel tips** (visa, weather, festivals, exchange rates)
+
+NextDestination solves all of them.
+
+---
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Scope — MVP with Mock Data**: This plan builds a **fully functional front-end MVP** using Next.js with rich mock data to showcase the complete UX vision. Real API integrations (Amadeus, Skyscanner, hotel APIs, car rental APIs) are planned for Phase 2. This lets you validate the concept and iterate on the UI before investing in expensive API subscriptions.
+
+> [!IMPORTANT]
+> **Tech Stack — Next.js (Production Grade)**:
+> - **Framework**: Next.js (App Router) — SSR, routing, API routes, production-ready
+> - **Styling**: Vanilla CSS with CSS Modules — full control, no utility-class bloat
+> - **Fonts**: Google Fonts via `next/font` (Inter + Outfit)
+> - **Maps**: Leaflet.js (free, open-source) for transit route visualization
+> - **Animations**: CSS transitions + Intersection Observer for scroll reveals
+
+---
+
+## Core Features (MVP)
+
+### 1. 🔍 Unified Natural Language Search
+- Single search bar: *"KL to Tokyo, 5 days, RM5000 budget"*
+- Auto-detect: origin, destination, dates, budget, number of travelers
+
+### 2. ✈️ Flight Comparison — All Airlines
+- Compare **all carriers** for the same route (AirAsia, MAS, JAL, Korean Air, Scoot, etc.)
+- Sort by: Price · Duration · Stops · Value Score (price ÷ quality)
+- Show codeshare info and baggage allowance
+
+### 3. 🏨 Hotel Price Parity — All Platforms
+- Same hotel shown with prices from **every major platform**:
+
+| Platform      | Price/Night | Total (5N) | Member Rate | Book → |
+|--------------|-------------|------------|-------------|--------|
+| **Direct**    | RM 275      | RM 1,375   | —           | →      |
+| Agoda         | RM 280      | RM 1,400   | RM 265      | →      |
+| Booking.com   | RM 295      | RM 1,475   | RM 280      | →      |
+| Airbnb        | RM 310      | RM 1,550   | —           | →      |
+| Expedia       | RM 305      | RM 1,525   | RM 290      | →      |
+| Trip.com      | RM 288      | RM 1,440   | RM 270      | →      |
+
+- Highlights cheapest with glow + "Save RM175" badge
+- Includes Airbnb listings matched to the same area
+
+### 4. 🚗 Car Rental Comparison
+- Compare rental providers (Hertz, Avis, local companies)
+- Show: vehicle type, daily rate, insurance included, pickup/dropoff locations
+- Auto-suggest based on destination (e.g. "Bali — car rental recommended, no rail network")
+
+### 5. 🛂 Arrival Card & Entry Requirements
+- Digital arrival card requirements for each destination
+- Visa status based on passport nationality (default: Malaysian)
+- Health declaration / vaccination requirements
+- Customs allowance (duty-free limits, prohibited items)
+
+### 6. 💱 Currency & Payment Methods
+- Live exchange rate display (MYR → destination currency)
+- Accepted payment methods at destination:
+  - 💳 Credit cards widely accepted? Visa/Mastercard/Amex?
+  - 📱 E-wallets? (Alipay, WeChat Pay, PayPay, GrabPay)
+  - 💵 Cash-heavy society? ATM availability?
+  - 🏪 Contactless/tap-to-pay support?
+- Recommended: "Bring cash" vs "Card is fine" summary
+
+### 7. 🚇 Public Transit Routes — Train/MRT/LRT
+- Interactive transit map for destination city
+- Airport → City center route options (train, bus, taxi, Grab)
+- Key MRT/LRT lines with station names
+- Fare estimates and travel time
+- Tourist pass recommendations (e.g. "Tokyo Subway 72-Hour Pass — ¥1,500")
+
+### 8. 🎯 Smart Travel Tips
+- Contextual to selected destination AND dates:
+  - 🛂 Visa: "Malaysian passport: 90 days visa-free in Japan"
+  - 🌧️ Weather: "Monsoon expected — pack rain gear"
+  - 🎏 Events: "Golden Week overlap — expect 30% higher prices"
+  - 💴 Exchange: "MYR→JPY at 3-month high — book now"
+  - 🚫 Culture: "Tipping is not customary in Japan"
+  - ⚡ Safety: "Petty theft common in tourist areas — use hotel safe"
+
+---
+
+## Proposed Architecture
+
+### File Structure
+
+```
+NextDestination/
+├── package.json
+├── next.config.js
+├── public/
+│   ├── favicon.svg
+│   ├── images/
+│   │   └── destinations/          # Hero images per city (generated)
+│   └── transit-maps/              # SVG transit maps per city
+├── src/
+│   ├── app/
+│   │   ├── layout.js              # Root layout (fonts, nav, footer)
+│   │   ├── page.js                # Landing page (hero + search)
+│   │   ├── page.module.css
+│   │   ├── globals.css            # Design system tokens & resets
+│   │   ├── results/
+│   │   │   ├── page.js            # Journey Strip results page
+│   │   │   └── page.module.css
+│   │   └── destination/
+│   │       └── [slug]/
+│   │           ├── page.js        # Destination detail (tips, transit, currency)
+│   │           └── page.module.css
+│   ├── components/
+│   │   ├── Navbar/
+│   │   │   ├── Navbar.js
+│   │   │   └── Navbar.module.css
+│   │   ├── Footer/
+│   │   │   ├── Footer.js
+│   │   │   └── Footer.module.css
+│   │   ├── SearchBar/
+│   │   │   ├── SearchBar.js
+│   │   │   └── SearchBar.module.css
+│   │   ├── JourneyStrip/
+│   │   │   ├── JourneyStrip.js
+│   │   │   └── JourneyStrip.module.css
+│   │   ├── FlightCard/
+│   │   │   ├── FlightCard.js
+│   │   │   └── FlightCard.module.css
+│   │   ├── HotelCompare/
+│   │   │   ├── HotelCompare.js
+│   │   │   └── HotelCompare.module.css
+│   │   ├── CarRental/
+│   │   │   ├── CarRental.js
+│   │   │   └── CarRental.module.css
+│   │   ├── ArrivalCard/
+│   │   │   ├── ArrivalCard.js
+│   │   │   └── ArrivalCard.module.css
+│   │   ├── CurrencyInfo/
+│   │   │   ├── CurrencyInfo.js
+│   │   │   └── CurrencyInfo.module.css
+│   │   ├── TransitMap/
+│   │   │   ├── TransitMap.js
+│   │   │   └── TransitMap.module.css
+│   │   ├── RouteCard/
+│   │   │   ├── RouteCard.js
+│   │   │   └── RouteCard.module.css
+│   │   ├── TipCard/
+│   │   │   ├── TipCard.js
+│   │   │   └── TipCard.module.css
+│   │   ├── DoorToDoorBar/
+│   │   │   ├── DoorToDoorBar.js       # Floating total cost bar
+│   │   │   └── DoorToDoorBar.module.css
+│   │   └── DestinationCard/
+│   │       ├── DestinationCard.js
+│   │       └── DestinationCard.module.css
+│   ├── data/
+│   │   ├── flights.js             # Mock flights (8+ airlines)
+│   │   ├── hotels.js              # Mock hotels (6 platforms per hotel)
+│   │   ├── carRentals.js          # Mock car rental options
+│   │   ├── arrivalCards.js        # Entry requirements per country
+│   │   ├── currencies.js          # Currency info + payment methods
+│   │   ├── transit.js             # Train/MRT/LRT routes per city
+│   │   ├── tips.js                # Travel tips per destination
+│   │   └── destinations.js        # Destination metadata
+│   └── utils/
+│       ├── searchParser.js        # Parse natural language queries
+│       ├── currency.js            # Formatting + conversion helpers
+│       └── animations.js          # Intersection Observer helpers
+```
+
+---
+
+### Page Breakdown
+
+#### Landing Page (`/`)
+- **Hero**: Full-viewport animated gradient + floating destination cards
+- **Search bar**: Centered, natural language with autocomplete
+- **Feature grid**: 6 animated cards for each capability (flights, hotels, cars, transit, currency, tips)
+- **Popular destinations**: Horizontal carousel with images and "from RM X" pricing
+- **How it works**: 3-step animated flow
+
+#### Results Page (`/results?q=...`)
+- **Journey Strip** (horizontal timeline):
+  ```
+  ✈️ FLIGHTS → 🚗 CAR RENTAL → 🚇 TRANSIT → 🏨 HOTELS → 🔄 RETURN
+  ```
+- Each section expands to show full comparison data
+- **Floating "Door-to-Door" cost bar** at bottom
+- Side panel: Arrival card info + currency tips
+
+#### Destination Page (`/destination/[slug]`)
+- Deep-dive into a specific destination
+- Tabs: Transit Map · Arrival Card · Currency & Payment · Travel Tips
+- Interactive transit map (Leaflet.js)
+- Full arrival card requirements
+- Complete payment method guide
+
+---
+
+### Design System
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--bg-primary` | `#070b1a` | Page background |
+| `--bg-surface` | `#0f1629` | Card backgrounds |
+| `--bg-glass` | `rgba(15,22,41,0.7)` | Glassmorphism panels |
+| `--accent-primary` | `#4f7df9` | Primary actions, links |
+| `--accent-secondary` | `#7c5cfc` | Secondary highlights |
+| `--accent-coral` | `#ff6b6b` | Alerts, price drops |
+| `--accent-gold` | `#ffd166` | Stars, ratings, savings |
+| `--accent-green` | `#36d399` | Cheapest price, success |
+| `--text-primary` | `#f0f2f5` | Main text |
+| `--text-secondary` | `#8892a8` | Muted text |
+| `--glass-blur` | `blur(20px)` | Backdrop filter |
+| `--radius-md` | `12px` | Card border radius |
+| `--radius-lg` | `20px` | Large card radius |
+| `--transition` | `0.3s cubic-bezier(.4,0,.2,1)` | Smooth transitions |
+
+- **Typography**: Inter (body) + Outfit (headings) via `next/font`
+- **Dark mode by default** — premium travel aesthetic
+- **Glassmorphism** cards with subtle borders
+- **Micro-animations**: Hover lifts, gradient shifts, staggered scroll reveals
+- **Responsive**: Mobile-first at 375px, tablet 768px, desktop 1200px
+
+---
+
+### Mock Data Scope
+
+| Data Type | Volume | Details |
+|-----------|--------|---------|
+| Destinations | 6 | Tokyo, Seoul, Bangkok, Bali, London, Istanbul |
+| Airlines | 8+ | AirAsia, MAS, JAL, Korean Air, Scoot, Emirates, Thai Airways, Singapore Airlines |
+| Flights per route | 8-10 | Varied prices, durations, layovers |
+| Hotels per destination | 5 | Each with prices from 6 platforms |
+| Car rental providers | 4 | Hertz, Avis, Budget, local providers |
+| Transit systems | Per city | MRT/subway lines, airport express, bus routes |
+| Arrival card fields | Per country | Visa, health, customs, digital forms |
+| Currency info | Per country | Exchange rate, payment methods, ATM info, tips |
+| Travel tips | 15-20 per destination | Visa, weather, culture, safety, money, events |
+
+---
+
+## Open Questions
+
+> [!IMPORTANT]
+> 1. **Destinations**: I've chosen Tokyo, Seoul, Bangkok, Bali, London, Istanbul — are these the 6 you'd like, or should I swap any?
+> 2. **Default origin**: Should the search default to **Kuala Lumpur (KUL)** as the departure city?
+> 3. **Deployment**: Vercel (recommended for Next.js), or somewhere else?
+
+---
+
+## Phased Roadmap
+
+| Phase | Timeline | Focus |
+|-------|----------|-------|
+| **Phase 1 (Now)** | 1–3 weeks | Full Next.js MVP with mock data, all 8 features, stunning UI |
+| **Phase 2** | 1–3 months | Real APIs: Amadeus (flights), hotel aggregator APIs, car rental APIs |
+| **Phase 3** | 3–6 months | User accounts, saved trips, price-drop alerts, live exchange rates |
+| **Phase 4** | 6–12 months | Single checkout with Stripe, booking automation |
+| **Phase 5** | 12+ months | Social routing, shared trips, mobile app (React Native) |
+
+---
+
+## Verification Plan
+
+### Automated Tests
+- `npm run build` — production bundle compiles without errors
+- `npm run lint` — no linting issues
+
+### Browser Verification
+- Landing page: hero, search bar, feature grid, destination carousel all render
+- Search flow: query parses correctly → results page loads with Journey Strip
+- Journey Strip: all 5 sections (flights, car, transit, hotel, return) display with mock data
+- Hotel comparison: 6-platform price table renders with cheapest highlighted
+- Car rental section: providers and pricing display correctly
+- Transit: interactive map loads, route options display
+- Arrival card: visa, health, customs info renders per destination
+- Currency: exchange rate, payment methods, ATM info display
+- Tips: contextual tips filter by category
+- Floating cost bar: updates when selections change
+- Responsive: works on 375px (mobile), 768px (tablet), 1200px+ (desktop)
+- Animations: scroll reveals, hover effects, glassmorphism all smooth

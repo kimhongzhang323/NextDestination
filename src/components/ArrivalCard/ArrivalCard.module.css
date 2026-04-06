@@ -1,0 +1,15 @@
+.card {
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(0,0,0,0.05);
+  background: var(--bg-surface);
+  padding: 1rem;
+}
+
+.card h3 {
+  margin: 0 0 0.6rem;
+}
+
+.card p {
+  margin: 0.45rem 0;
+  color: var(--text-secondary);
+}

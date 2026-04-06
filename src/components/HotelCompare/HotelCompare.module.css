@@ -1,0 +1,37 @@
+.wrap {
+  display: grid;
+  gap: 1rem;
+}
+
+.card {
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(0,0,0,0.05);
+  background: var(--bg-surface);
+  padding: 1rem;
+}
+
+.card h3,
+.card p {
+  margin: 0;
+}
+
+.card p {
+  color: var(--text-secondary);
+  margin-bottom: 0.75rem;
+}
+
+.card table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.card th,
+.card td {
+  text-align: left;
+  padding: 0.45rem;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.best {
+  background: rgba(54, 211, 153, 0.12);
+}

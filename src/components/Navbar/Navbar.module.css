@@ -1,0 +1,56 @@
+.navbar {
+  width: min(1300px, 94vw);
+  margin: 1.5rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  position: relative;
+  z-index: 10;
+}
+
+.brand {
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.links {
+  display: flex;
+  gap: 2.5rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.links a {
+  transition: var(--transition);
+}
+
+.links a:hover, .active {
+  color: var(--text-primary);
+}
+
+.active {
+  font-weight: 700;
+}
+
+.joinBtn {
+  background: #e9ecf2;
+  color: var(--text-primary);
+  border: none;
+  padding: 0.6rem 1.8rem;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.joinBtn:hover {
+  background: #dce0e8;
+}
